@@ -27,19 +27,14 @@ var Render = module.exports = function(manifest, data, isDebug, callback) {
     callback(e);
   };
 
-  var top = "<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}<div style='visibility:hidden;position: absolute; top: 0; left: -9999px;'>";
-  var bottom = "</div></body></html>";
+  var html = "<!DOCTYPE html><html><head><style type='text/css'>{{> css}}</style></head><body>{{> body}}</body></html>";
 
   if (isDebug === 'true') {
-    top = "<style type='text/css'>{{> css}}</style></head><body>{{> body}}<div>";
-    bottom = "</div></body>"
-    page.content = Handlebars.compile(top + bottom)(data);
+    html = "<style type='text/css'>{{> css}}</style></head><body>{{> body}}</body>";
   }
-
-  else {
-    page.content = Handlebars.compile(top + headerInserts + footerInserts + bottom)(data);
-  }
-
+  
+  page.content = Handlebars.compile(top + headerInserts + footerInserts + bottom)(data);
+  
   if (manifest.scripts) {
     manifest.scripts.forEach(function(script) {
       page.injectJs(script);
