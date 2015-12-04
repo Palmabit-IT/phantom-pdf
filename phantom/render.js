@@ -33,7 +33,7 @@ var Render = module.exports = function(manifest, data, isDebug, callback) {
     html = "<style type='text/css'>{{> css}}</style></head><body>{{> body}}</body>";
   }
   
-  page.content = Handlebars.compile(top + headerInserts + footerInserts + bottom)(data);
+  page.content = Handlebars.compile(top + headerInserts + footerInserts)(data);
   
   if (manifest.scripts) {
     manifest.scripts.forEach(function(script) {
